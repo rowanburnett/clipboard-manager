@@ -1,0 +1,73 @@
+{
+  "name": "vscode-clipboard-manager",
+  "displayName": "Clipboard Manager",
+  "description": "Manage clipboard history in VS Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "clipboardManager.showClipboard",
+        "title": "Show Clipboard History"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [{
+        "id": "clipboard-manager",
+        "title": "Clipboard Manager",
+        "icon": "$(clippy)"
+      }]
+    },
+    "views": {
+      "clipboard-manager": [{
+        "type": "webview",
+        "id": "clipboardManagerView",
+        "name": "Clipboard History"
+      }]
+    },
+    "configuration": {
+      "title": "Clipboard Manager",
+      "properties": {
+        "clipboardManager.persistHistory": {
+          "type": "boolean",
+          "default": false,
+          "description": "Persist clipboard history between sessions"
+        },
+        "clipboardManager.maxHistoryItems": {
+          "type": "number",
+          "default": 100,
+          "description": "Maximum number of items to keep in history"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "clipboardManager.showClipboard",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "@types/node": "^14.14.37",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
+    "typescript": "^4.2.4"
+  }
+}
